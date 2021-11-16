@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 19-Ago-2021 às 13:34
--- Versão do servidor: 10.1.32-MariaDB
--- PHP Version: 7.0.30
+-- Tempo de geração: 24-Ago-2021 às 16:33
+-- Versão do servidor: 10.4.17-MariaDB
+-- versão do PHP: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bdlojaetec`
+-- Banco de dados: `bdlojaetec`
 --
 CREATE DATABASE IF NOT EXISTS `bdlojaetec` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `bdlojaetec`;
@@ -44,7 +43,7 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`idcli`, `nomecli`, `endcli`, `fonecli`, `emailcli`) VALUES
 (1, 'CANTINA ETEC MCM', 'RUA BÉLGICA, 88', '1148484848', 'cantinaetec@email.com'),
-(2, 'PAPELARIA Moana', 'RUA DO CENTRO, 1234', '11998956464', 'papelaria@email.com');
+(2, 'PAPELARIA Moana', 'RUA DO CENTRO, 1234', '11998956464', 'papelariamoana@email.com');
 
 -- --------------------------------------------------------
 
@@ -54,7 +53,7 @@ INSERT INTO `clientes` (`idcli`, `nomecli`, `endcli`, `fonecli`, `emailcli`) VAL
 
 CREATE TABLE `ordem_servico` (
   `os` int(11) NOT NULL,
-  `data_os` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `data_os` timestamp NOT NULL DEFAULT current_timestamp(),
   `equipamento` varchar(150) NOT NULL,
   `defeito` varchar(150) NOT NULL,
   `tecnico` varchar(50) NOT NULL,
@@ -81,64 +80,67 @@ CREATE TABLE `usuarios` (
   `usuario` varchar(50) NOT NULL,
   `fone` varchar(15) NOT NULL,
   `login` varchar(15) NOT NULL,
-  `senha` varchar(15) NOT NULL
+  `senha` varchar(15) NOT NULL,
+  `perfil` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`iduser`, `usuario`, `fone`, `login`, `senha`) VALUES
-(1, 'Ana Carolyny', '1199999-9999', 'Ana Thomazini', '1234');
+INSERT INTO `usuarios` (`iduser`, `usuario`, `fone`, `login`, `senha`, `perfil`) VALUES
+(1, 'Ana Carolyny', '1199999-9999', 'ana thomazini', '1234', 'admin'),
+(2, 'FULANO DA SILVA', '1199999-9999', 'fulano', '1234', 'admin'),
+(3, 'ZEZINHO DA SILVA', '1199999-9999', 'zezinho', '1234', 'user');
 
 --
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `clientes`
+-- Índices para tabela `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`idcli`);
 
 --
--- Indexes for table `ordem_servico`
+-- Índices para tabela `ordem_servico`
 --
 ALTER TABLE `ordem_servico`
   ADD PRIMARY KEY (`os`),
   ADD KEY `idcli` (`idcli`);
 
 --
--- Indexes for table `usuarios`
+-- Índices para tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`iduser`),
   ADD UNIQUE KEY `login` (`login`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `clientes`
+-- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
   MODIFY `idcli` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `ordem_servico`
+-- AUTO_INCREMENT de tabela `ordem_servico`
 --
 ALTER TABLE `ordem_servico`
   MODIFY `os` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Constraints for dumped tables
+-- Restrições para despejos de tabelas
 --
 
 --
